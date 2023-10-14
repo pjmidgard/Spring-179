@@ -1,4 +1,3 @@
-#Author Jurijus Pacalovas
 import paq
 import os
 import shutil
@@ -28,8 +27,10 @@ hidden_compressed_file = f"{hidden_folder}/.my_hidden_data.paq"
 if not os.path.exists(hidden_folder):
     os.mkdir(hidden_folder)
 
-# Automatically extract data when the program starts
-if compressed_data is not None:
+# Automatically extract data when the program starts if the hidden file exists
+if os.path.exists(hidden_compressed_file):
+    with open(hidden_compressed_file, "rb") as compressed_file:
+        compressed_data = compressed_file.read()
     extracted_data = extract_data(compressed_data)
     extracted_file_name = "extracted_data.bin"
     # Check if the file exists, and choose a different name if it does
@@ -64,18 +65,18 @@ while True:
         try:
             if compressed_data is not None:
                 extracted_data = extract_data(compressed_data)
-                extracted_file_name = input("Enter the name for manual extraction: ")
-                # Check if the file exists, and choose a different name if it does
-                file_counter = 1
-                while os.path.exists(extracted_file_name):
-                    extracted_file_name = f"{extracted_file_name}_{file_counter}"
-                    file_counter += 1
+                extracted_file_name = input("Enter the name to save the extracted data (e.g., x1_x3_save.bin): ")
                 with open(extracted_file_name, "wb") as extracted_file:
                     extracted_file.write(extracted_data)
                 print(f"Data has been manually extracted using 'paq' and saved to {extracted_file_name}")
 
                 # Delete the compressed data file after extraction
                 os.remove(hidden_compressed_file)
+
+                # You can use shutil to move or copy the extracted file if needed.
+                # For example, to move it to a different directory:
+                destination_directory = "/path/to/destination"
+                shutil.move(extracted_file_name, os.path.join(destination_directory, extracted_file_name))
         except Exception as e:
             pass
 
