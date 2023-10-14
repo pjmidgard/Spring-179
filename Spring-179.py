@@ -1,3 +1,4 @@
+#Author Jurijus Pacalovas 
 import gzip
 
 # Function to compress data
