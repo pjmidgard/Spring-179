@@ -1,3 +1,4 @@
+#Author Jurijus Pacalovas 
 import gzip
 import os
 
