@@ -1,6 +1,7 @@
 #Author Jurijus Pacalovas
 import paq
 import os
+import shutil
 
 # Function to compress data using "paq"
 def compress_data(input_data):
@@ -60,22 +61,31 @@ while True:
             X3 += 1
 
     elif choice == "2":
-        if compressed_data is not None:
-            extracted_data = extract_data(compressed_data)
-            extracted_file_name = input("Enter the name for manual extraction: ")
-            # Check if the file exists, and choose a different name if it does
-            file_counter = 1
-            while os.path.exists(extracted_file_name):
-                extracted_file_name = f"{extracted_file_name}_{file_counter}"
-                file_counter += 1
-            with open(extracted_file_name, "wb") as extracted_file:
-                extracted_file.write(extracted_data)
-            print(f"Data has been manually extracted using 'paq' and saved to {extracted_file_name}")
+        try:
+            if compressed_data is not None:
+                extracted_data = extract_data(compressed_data)
+                extracted_file_name = input("Enter the name for manual extraction: ")
+                # Check if the file exists, and choose a different name if it does
+                file_counter = 1
+                while os.path.exists(extracted_file_name):
+                    extracted_file_name = f"{extracted_file_name}_{file_counter}"
+                    file_counter += 1
+                with open(extracted_file_name, "wb") as extracted_file:
+                    extracted_file.write(extracted_data)
+                print(f"Data has been manually extracted using 'paq' and saved to {extracted_file_name}")
+
+                # Delete the compressed data file after extraction
+                os.remove(hidden_compressed_file)
+        except Exception as e:
+            pass
 
     else:
-        # Save the compressed data to a hidden file in the hidden folder before exiting
-        if compressed_data:
-            with open(hidden_compressed_file, "wb") as saved_data_file:
-                saved_data_file.write(compressed_data)
+        try:
+            # Save the compressed data to a hidden file in the hidden folder before exiting
+            if compressed_data:
+                with open(hidden_compressed_file, "wb") as saved_data_file:
+                    saved_data_file.write(compressed_data)
+        except Exception as e:
+            pass
         print("Exiting.")
         break
