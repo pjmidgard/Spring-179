@@ -1,4 +1,3 @@
-# Author Jurijus Pacalovas
 import paq
 import os
 import shutil
