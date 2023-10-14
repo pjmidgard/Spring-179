@@ -1,4 +1,4 @@
-#Author Jurijus Pacalovas 
+# Author Jurijus Pacalovas
 import paq
 import os
 import shutil
@@ -69,10 +69,16 @@ while True:
         x1_x3_file = "x1_x3_values.txt"
         save_x1_x3_to_file(x1_x3_file, X1, X3)
 
-        X1 += 1
-        if X1 == X1_limit:
-            X1 = 0
-            X3 += 1
+        # Check if X2 is equal to the number of files in the hidden folder
+        if X2 == len(os.listdir(hidden_folder)):
+            X1 += 1
+            if X1 == X1_limit:
+                X1 = 0
+                X3 += 1
+            X2 = 0  # Reset X2 when X2 equals the number of files
+
+        # Increment X2 by 1
+        X2 += 1
 
     elif choice == "2":
         if compressed_data is not None:
