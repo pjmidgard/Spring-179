@@ -1,15 +1,16 @@
 # Author Jurijus Pacalovas
-import paq
 import os
 import shutil
 
-# Function to compress data using "paq"
+# Function to compress data using a simple algorithm (you can replace this with your algorithm)
 def compress_data(input_data):
-    return paq.compress(input_data)
+    # Replace this with your compression logic
+    return input_data
 
-# Function to extract data using "paq"
+# Function to extract data using a simple algorithm (you can replace this with your extraction logic)
 def extract_data(compressed_data):
-    return paq.decompress(compressed_data)
+    # Replace this with your extraction logic
+    return compressed_data
 
 # Function to save the values of X1 and X3 to a file
 def save_x1_x3_to_file(filename, x1_value, x3_value):
@@ -52,7 +53,7 @@ if os.path.exists(x1_x2_bin_path):
         file_counter += 1
     with open(extracted_file_name, "wb") as extracted_file:
         extracted_file.write(extracted_data)
-    print(f"Data has been automatically extracted using 'paq' and saved to {extracted_file_name}")
+    print(f"Data has been automatically extracted and saved to {extracted_file_name}")
 
 while True:
     # Ask the user for their choice
@@ -87,7 +88,7 @@ while True:
             extracted_file_name = input("Enter the name to save the extracted data: ")
             with open(extracted_file_name, "wb") as extracted_file:
                 extracted_file.write(extracted_data)
-            print(f"Data has been manually extracted using 'paq' and saved to {extracted_file_name}")
+            print(f"Data has been manually extracted and saved to {extracted_file_name}")
             
             # Increment and save Y
             Y += 1
@@ -105,6 +106,14 @@ while True:
                 destination_path = "/path/to/destination/x1_x2_bin"
                 shutil.copy(x1_x2_bin_path, destination_path)
             print("Exiting.")
+            
+            # Automatically extract data before exiting
+            extracted_data = extract_data(compressed_data)
+            extracted_file_name = "extracted_data_on_exit.bin"
+            with open(extracted_file_name, "wb") as extracted_file:
+                extracted_file.write(extracted_data)
+            print(f"Data has been automatically extracted and saved to {extracted_file_name} before exiting.")
+
             break
         except Exception as e:
             pass
