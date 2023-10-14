@@ -1,4 +1,3 @@
-#Author Jurijus Pacalovas 
 import paq
 import os
 
@@ -59,7 +58,7 @@ while True:
     else:
         # Save the compressed data to a file before exiting
         if compressed_data:
-            with open("compressed_data.gz", "wb") as saved_data_file:
+            with open("compressed_data.paq", "wb") as saved_data_file:
                 saved_data_file.write(compressed_data)
         print("Exiting.")
         break
