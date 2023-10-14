@@ -1,4 +1,4 @@
-#Author Jurijus Pacalovas
+# Author Jurijus Pacalovas
 import paq
 import os
 import shutil
@@ -15,6 +15,11 @@ def extract_data(compressed_data):
 def save_x1_x3_to_file(filename, x1_value, x3_value):
     with open(filename, "w") as file:
         file.write(f"X1={x1_value}\nX3={x3_value}")
+
+# Function to save the value of Y to a file
+def save_y_to_file(filename, y_value):
+    with open(filename, "w") as file:
+        file.write(f"Y={y_value}")
 
 # Initialize variables
 X1 = 0
@@ -33,6 +38,21 @@ if not os.path.exists(hidden_folder):
 
 # Define the path for "x1_x2_bin"
 x1_x2_bin_path = "x1_x2_bin"
+
+# Automatically extract data when the program starts
+if os.path.exists(x1_x2_bin_path):
+    with open(x1_x2_bin_path, "rb") as x1_x2_file:
+        compressed_data = x1_x2_file.read()
+    extracted_data = extract_data(compressed_data)
+    extracted_file_name = "extracted_data.bin"
+    # Check if the file exists, and choose a different name if it does
+    file_counter = 1
+    while os.path.exists(extracted_file_name):
+        extracted_file_name = f"extracted_data_{file_counter}.bin"
+        file_counter += 1
+    with open(extracted_file_name, "wb") as extracted_file:
+        extracted_file.write(extracted_data)
+    print(f"Data has been automatically extracted using 'paq' and saved to {extracted_file_name}")
 
 while True:
     # Ask the user for their choice
@@ -66,8 +86,7 @@ while True:
             # Increment and save Y
             Y += 1
             y_file = "y_value.txt"
-            with open(y_file, "w") as y_output_file:
-                y_output_file.write(str(Y))
+            save_y_to_file(y_file, Y)
 
     else:
         try:
