@@ -1,14 +1,14 @@
 #Author Jurijus Pacalovas 
-import gzip
+import paq
 import os
 
 # Function to compress data
 def compress_data(input_data):
-    return gzip.compress(input_data)
+    return paq.compress(input_data)
 
 # Function to extract data
 def extract_data(compressed_data):
-    return gzip.decompress(compressed_data)
+    return paq.decompress(compressed_data)
 
 # Initialize variables
 X1 = 0
