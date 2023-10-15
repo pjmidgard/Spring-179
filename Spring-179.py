@@ -55,6 +55,24 @@ if os.path.exists(x1_x2_bin_path):
         extracted_file.write(extracted_data)
     print(f"Data has been automatically extracted and saved to {extracted_file_name}")
 
+# Check if the file was deleted or doesn't exist
+if not os.path.exists(x1_x2_bin_path):
+    # Handle the case where "x1_x2_bin" is missing
+    print("The 'x1_x2_bin' file is missing. Attempting recovery...")
+    
+    # Implement your recovery logic here, such as creating or restoring the file
+    # For example, you could generate new compressed data or restore from a backup.
+    # Then, save it to "x1_x2_bin" as shown below:
+
+    # Generate new compressed data (replace with your logic)
+    new_compressed_data = compress_data(some_input_data)
+    
+    # Save it to "x1_x2_bin" for future use
+    with open(x1_x2_bin_path, "wb") as x1_x2_file:
+        x1_x2_file.write(new_compressed_data)
+
+    print("Recovery complete. A new 'x1_x2_bin' file has been created.")
+
 while True:
     # Ask the user for their choice
     choice = input("Enter 1 for compression, 2 for manual extraction, or any other key to exit: ").strip()
